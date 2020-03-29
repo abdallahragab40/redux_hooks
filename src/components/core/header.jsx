@@ -82,13 +82,13 @@ class Header extends Component {
                       </li>
                       <li className="dropdown__item list__item">
                         <a href="/" className="link">
-                          <img className="flag flag-es" src alt="" />
+                          <img className="flag flag-es" src="/" alt="" />
                           Español
                         </a>
                       </li>
                       <li className="dropdown__item list__item">
                         <a href="/" className="link">
-                          <img className="flag flag-fr" src alt="" />
+                          <img className="flag flag-fr" src="/" alt="" />
                           Française
                         </a>
                       </li>

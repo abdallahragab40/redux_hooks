@@ -1,5 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
+import { Provider, connect } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
+import store from "./store";
 
 import "./App.css";
 import ProductListing from "./components/products/product-listing";
@@ -12,6 +14,8 @@ import Login from "./components/authontication/login";
 import Register from "./components/authontication/register";
 import Header from "./components/core/header";
 import Footer from "./components/core/footer";
+
+import { fetchProducts } from "./actions/productsActions";
 
 class App extends Component {
   state = {
@@ -202,46 +206,48 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <Header
-          totalPrice={this.totalPrice}
-          products={this.state.products}
-          onDelete={this.onDelete}
-        ></Header>
-        <Switch>
-          <Route path="/about-us" component={AboutUS} />
-          <Route path="/contact-us" component={ContactUs} />
-          <Route path="/login" render={props => <Login {...props} />} />
-          <Route path="/register" component={Register} />
-          <Route path="/not-found" exact component={ErrorPage} />
-          <Route
-            path="/home"
-            render={props => (
-              <ProductListing
-                {...props}
-                products={this.state.products}
-                types={this.state.types}
-                handleAdding={this.handleAdding}
-                pageSize={this.state.pageSize}
-                activePage={this.state.activePage}
-                activeFilter={this.state.activeFilter}
-                sort={this.state.sort}
-                onFilterChange={this.handleFilterChange}
-                onPageChange={this.handlePageChange}
-                onSort={this.handelSort}
-                onSearch={this.handleSearch}
-                search={this.state.search}
-              />
-            )}
-          />
-          <Route path="/add-product" component={addProduct} />
-          <Route path="/product-detail" component={ProductDetail} />
+      <Provider store={store}>
+        <React.Fragment>
+          <Header
+            totalPrice={this.totalPrice}
+            products={this.state.products}
+            onDelete={this.onDelete}
+          ></Header>
+          <Switch>
+            <Route path="/about-us" component={AboutUS} />
+            <Route path="/contact-us" component={ContactUs} />
+            <Route path="/login" render={props => <Login {...props} />} />
+            <Route path="/register" component={Register} />
+            <Route path="/not-found" exact component={ErrorPage} />
+            <Route
+              path="/home"
+              render={props => (
+                <ProductListing
+                  {...props}
+                  products={this.state.products}
+                  types={this.state.types}
+                  handleAdding={this.handleAdding}
+                  pageSize={this.state.pageSize}
+                  activePage={this.state.activePage}
+                  activeFilter={this.state.activeFilter}
+                  sort={this.state.sort}
+                  onFilterChange={this.handleFilterChange}
+                  onPageChange={this.handlePageChange}
+                  onSort={this.handelSort}
+                  onSearch={this.handleSearch}
+                  search={this.state.search}
+                />
+              )}
+            />
+            <Route path="/add-product" component={addProduct} />
+            <Route path="/product-detail" component={ProductDetail} />
 
-          <Redirect from="/" to="/home" />
-          <Redirect to="/not-found" />
-        </Switch>
-        <Footer></Footer>
-      </React.Fragment>
+            <Redirect from="/" to="/home" />
+            <Redirect to="/not-found" />
+          </Switch>
+          <Footer></Footer>
+        </React.Fragment>
+      </Provider>
     );
   }
 }
