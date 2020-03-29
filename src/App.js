@@ -19,137 +19,23 @@ import { fetchProducts } from "./actions/productsActions";
 
 class App extends Component {
   state = {
-    types: [
-      { id: 0, name: "All" },
-      { id: 1, name: "Tv" },
-      { id: 2, name: "Mobile" },
-      { id: 3, name: "Car" },
-      { id: 4, name: "Sports" }
-    ],
-    products: [
-      {
-        id: 1,
-        typeId: 1,
-        title: "Sony Tv",
-        imageURL: 'url("img/products/product-grey-1.jpg")',
-        price: 2000,
-        discount: 500,
-        count: 0,
-        isInCard: false
-      },
-      {
-        id: 2,
-        typeId: 1,
-        title: "Samsung Tv",
-        imageURL: 'url("img/products/product-grey-1.jpg")',
-        price: 300,
-        count: 0,
-        isInCard: false
-      },
-      {
-        id: 3,
-        typeId: 1,
-        title: "Toshiba Tv",
-        imageURL: 'url("img/products/product-grey-1.jpg")',
-        price: 2500,
-        discount: 200,
-        count: 0,
-        isInCard: false
-      },
-      {
-        id: 4,
-        typeId: 2,
-        title: "Sony Mobile",
-        imageURL: 'url("img/products/product-grey-1.jpg")',
-        price: 8000,
-        discount: 1500,
-        count: 0,
-        isInCard: false
-      },
-      {
-        id: 5,
-        typeId: 2,
-        title: "Samsung Mobile",
-        imageURL: 'url("img/products/product-grey-1.jpg")',
-        price: 6600,
-        count: 0,
-        isInCard: false
-      },
-      {
-        id: 6,
-        typeId: 2,
-        title: "Toshiba Mobile",
-        imageURL: 'url("img/products/product-grey-1.jpg")',
-        price: 5500,
-        discount: 700,
-        count: 0,
-        isInCard: false
-      },
-      {
-        id: 7,
-        typeId: 3,
-        title: "Sony Car",
-        imageURL: 'url("img/products/product-grey-1.jpg")',
-        price: 20000,
-        discount: 5000,
-        count: 0,
-        isInCard: false
-      },
-      {
-        id: 8,
-        typeId: 3,
-        title: "Samsung Car",
-        imageURL: 'url("img/products/product-grey-1.jpg")',
-        price: 30000,
-        count: 0,
-        isInCard: false
-      },
-      {
-        id: 9,
-        typeId: 3,
-        title: "Toshiba Car",
-        imageURL: 'url("img/products/product-grey-1.jpg")',
-        price: 25000,
-        discount: 2000,
-        count: 0,
-        isInCard: false
-      },
-      {
-        id: 10,
-        typeId: 4,
-        title: "Ahly Sports",
-        imageURL: 'url("img/products/product-grey-1.jpg")',
-        price: 450,
-        discount: 100,
-        count: 0,
-        isInCard: false
-      },
-      {
-        id: 11,
-        typeId: 4,
-        title: "Arsenal Sports",
-        imageURL: 'url("img/products/product-grey-1.jpg")',
-        price: 300,
-        count: 0,
-        isInCard: false
-      },
-      {
-        id: 12,
-        typeId: 4,
-        title: "Milan Sports",
-        imageURL: 'url("img/products/product-grey-1.jpg")',
-        price: 250,
-        discount: 50,
-        count: 0,
-        isInCard: false
-      }
-    ],
+    types: [],
+    products: [],
     pageSize: 9,
     activePage: 1,
     activeFilter: 0,
     search: "",
     sort: { path: "title", order: "asc" }
   };
+
+  componentDidMount() {
+    fetch("http://localhost:3000/products")
+      .then(res => res.json())
+      .then(data => this.setState({ products: data }));
+    fetch("http://localhost:3000/types")
+      .then(res => res.json())
+      .then(data => this.setState({ types: data }));
+  }
 
   onDelete = product => {
     let products = [...this.state.products];
@@ -178,7 +64,7 @@ class App extends Component {
   totalPrice = () => {
     return this.state.products
       .map(product => product.count * product.price)
-      .reduce((a, b) => a + b);
+      .reduce((a, b) => a + b, 0);
   };
 
   handlePageChange = page => {
