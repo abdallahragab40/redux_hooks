@@ -52,7 +52,7 @@ class ProductListing extends Component {
                 <i className="fas fa-search" />
               </button>
             </div>
-            <Categories></Categories>
+            {/* <Categories></Categories> */}
             <Filters
               activeFilter={this.props.activeFilter}
               types={this.props.types}
@@ -82,7 +82,7 @@ class ProductListing extends Component {
               >
                 Sort by Name
               </button>
-              <button
+              {/* <button
                 onClick={() => this.props.onSort(this.props.products.price)}
                 className="btn btn-primary m-2"
               >
@@ -93,7 +93,7 @@ class ProductListing extends Component {
                 className="btn btn-primary m-2"
               >
                 Sort by Price low to high
-              </button>
+              </button> */}
 
               <Link className="action-btn" to="/add-product">
                 <i className="fas fa-plus" />
