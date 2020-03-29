@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import _ from "lodash";
 
 import Categories from "./categories";
@@ -129,5 +131,12 @@ class ProductListing extends Component {
     );
   }
 }
+
+// const mapStateToProps = state => {
+//   return {
+//     products: state.products.items
+//   };
+// };
+// export default connect(mapStateToProps)(ProductListing);
 
 export default ProductListing;
